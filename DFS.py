@@ -44,8 +44,7 @@ while stack:
 
         for adj in all_adjacencies[current_room_id]:
 
-            if (distances_from_origin[adj] > current_room_distance + 1
-                and adj not in visited_rooms):
+            if adj not in visited_rooms:
 
                 stem_room[adj] = current_room_id
                 distances_from_origin[adj] = current_room_distance + 1
