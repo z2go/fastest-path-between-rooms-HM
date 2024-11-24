@@ -39,16 +39,13 @@ distances_from_origin[starting_room_id] = 0 #Sets starting room distance to 0
 while stack:
     current_room_id, current_room_distance = stack.pop()
 
-    if current_room_id not in visited_rooms:
-        visited_rooms.append(current_room_id)
+    for adj in all_adjacencies[current_room_id]: #cycles through all adjacencies
 
-        for adj in all_adjacencies[current_room_id]:
-
-            if adj not in visited_rooms:
-
-                stem_room[adj] = current_room_id
-                distances_from_origin[adj] = current_room_distance + 1
-                stack.append((adj, current_room_distance + 1))
+        if adj not in visited_rooms:
+            visited_rooms.append(adj)
+            stem_room[adj] = current_room_id
+            distances_from_origin[adj] = current_room_distance + 1
+            stack.append((adj, current_room_distance + 1)) #Puts adjacency on the stack
 
 #This function gets the path of rooms from the starting room to a room
 def get_previous_rooms(id):
@@ -64,4 +61,4 @@ path = [starting_room_name] + get_previous_rooms(target_room_id)
 
 print(f"Distance to target room: {distances_from_origin[target_room_id]+1}") #Prints distance
 for room in path: #Prints path
-    print(room)
+    print(room+"\n")
